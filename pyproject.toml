@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "github-create-and-add-labels-all-repos-using-python"
+version = "0.1.0"
+description = "Create and add GitHub labels to repositories which can be later used for pull requests and issues"
+authors = ["githubofkrishnadhas <krishnadhasnk1997@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.32.3"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
