@@ -44,6 +44,8 @@ def create_new_label(repo_names: list[str], org_name: str):
 
     color1 = random.choice(colors)
     color2 = random.choice(colors)
+    color3 = random.choice(colors)
+    color4 = random.choice(colors)
     for repository in repo_names:
         api_endpoint=f'https://api.github.com/repos/{org_name}/{repository}/labels'
 
@@ -65,15 +67,35 @@ def create_new_label(repo_names: list[str], org_name: str):
                 "color": color2.replace("#", "")
             }
 
+        data3 = {
+            "name": "jenkins",
+            "description": "jenkins ci cd",
+            "color" : color3.replace("#", "")
+        }
+
+        data4 = {
+            "name": "docker",
+            "description": "docker",
+            "color": color4.replace("#", "")
+        }
+
         response1 = requests.post(url=api_endpoint,  headers=headers, json=data1)
         status_code1 = response1.status_code
         response2 =  requests.post(url=api_endpoint, headers=headers, json=data2)
         status_code2 = response2.status_code
+        response3 = requests.post(url=api_endpoint, headers=headers, json=data3)
+        status_code3 = response3.status_code
+        response4 = requests.post(url=api_endpoint, headers=headers, json=data4)
+        status_code4 = response4.status_code
         response1_json =response1.json()
         # print(response1_json)
         response2_json =response2.json()
         # print(response2_json)
+        response3_json =response3.json()
+        response4_json =response4.json()
 
+
+    # data 1
         if status_code1 == 201:
             print(f'New label {data1["name"]} created for repository - {repository}')
         elif status_code1 == 404:
@@ -83,7 +105,7 @@ def create_new_label(repo_names: list[str], org_name: str):
             # print(f'Validation failed, or the endpoint has been spammed')
         else:
             print('Something is wrong. Please try again')
-
+    # data2
         if status_code2 == 201:
             print(f'New label {data2["name"]} created for repository - {repository}')
         elif status_code2 == 404:
@@ -93,8 +115,27 @@ def create_new_label(repo_names: list[str], org_name: str):
             # print(f'Validation failed, or the endpoint has been spammed')
         else:
             print('Something is wrong. Please try again')
+    # data3
+        if status_code3 == 201:
+            print(f'New label {data3["name"]} created for repository - {repository}')
+        elif status_code3 == 404:
+            print(f'Resource not found')
+        elif status_code3 == 422:
+            print(f"{response3_json['message']}. {response3_json['errors'][0]['resource']} {response3_json['errors'][0]['field']} {data3['name']} {response3_json['errors'][0]['code']} in the repository {repository}")
+            # print(f'Validation failed, or the endpoint has been spammed')
+        else:
+            print('Something is wrong. Please try again')
+    # data4
 
-
+        if status_code4 == 201:
+            print(f'New label {data4["name"]} created for repository - {repository}')
+        elif status_code4 == 404:
+            print(f'Resource not found')
+        elif status_code4 == 422:
+            print(f"{response4_json['message']}. {response4_json['errors'][0]['resource']} {response4_json['errors'][0]['field']} {data4['name']} {response4_json['errors'][0]['code']} in the repository {repository}")
+            # print(f'Validation failed, or the endpoint has been spammed')
+        else:
+            print('Something is wrong. Please try again')
 
 def main():
     """ To test the script"""
