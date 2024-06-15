@@ -26,6 +26,7 @@ def list_repos_in_org(org_name: str):
     repo_names = []
 
     for repo in response_json:
+        print(repo['name'])
         repo_names.append(repo['name'])
 
     print(f'Listing Public repos in {org_name} completed')
