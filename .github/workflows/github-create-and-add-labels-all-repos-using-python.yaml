@@ -26,6 +26,7 @@ jobs:
           poetry install
       - name: execute python program
         env:
+          GH_TOKEN: ${{ secrets.DEVWITHKRISHNA_PERSONAL_ACCESS_TOKEN }}
           org_name: 'devwithkrishna'
         run: |
           poetry run python3 create_new_labels.py
