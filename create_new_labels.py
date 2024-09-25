@@ -49,7 +49,7 @@ def list_repos_in_org(org_name: str):
     for repo in all_repositories:
         print(repo['name'])
         repo_names.append(repo['name'])
-
+    print(f"Found {len(repo_names)} in {org_name}")
     print(f'Listing Public repos in {org_name} completed')
     return repo_names
 
@@ -68,6 +68,10 @@ def create_new_label(repo_names: list[str], org_name: str):
     color2 = random.choice(colors)
     color3 = random.choice(colors)
     color4 = random.choice(colors)
+    color5 = random.choice(colors)
+    color6 = random.choice(colors)
+    color7 = random.choice(colors)
+    color8 = random.choice(colors)
     for repository in repo_names:
         api_endpoint=f'https://api.github.com/repos/{org_name}/{repository}/labels'
 
@@ -101,6 +105,27 @@ def create_new_label(repo_names: list[str], org_name: str):
             "color": color4.replace("#", "")
         }
 
+        data5 = {
+            "name": "first-release",
+            "description": "first release",
+            "color": color4.replace("#", "")
+        }
+        data6 = {
+            "name": "major",
+            "description": "major release",
+            "color": color4.replace("#", "")
+        }
+        data7 = {
+            "name": "minor",
+            "description": "minor release",
+            "color": color4.replace("#", "")
+        }
+        data8 = {
+            "name": "patch",
+            "description": "patch update",
+            "color": color4.replace("#", "")
+        }
+
         response1 = requests.post(url=api_endpoint,  headers=headers, json=data1)
         status_code1 = response1.status_code
         response2 =  requests.post(url=api_endpoint, headers=headers, json=data2)
@@ -109,12 +134,24 @@ def create_new_label(repo_names: list[str], org_name: str):
         status_code3 = response3.status_code
         response4 = requests.post(url=api_endpoint, headers=headers, json=data4)
         status_code4 = response4.status_code
+        response5 = requests.post(url=api_endpoint, headers=headers, json=data1)
+        status_code5 = response5.status_code
+        response6 = requests.post(url=api_endpoint, headers=headers, json=data1)
+        status_code6 = response6.status_code
+        response7 = requests.post(url=api_endpoint, headers=headers, json=data1)
+        status_code7 = response7.status_code
+        response8 = requests.post(url=api_endpoint, headers=headers, json=data1)
+        status_code8 = response8.status_code
         response1_json =response1.json()
         # print(response1_json)
         response2_json =response2.json()
         # print(response2_json)
         response3_json =response3.json()
         response4_json =response4.json()
+        response5_json = response5.json()
+        response6_json = response6.json()
+        response7_json = response7.json()
+        response8_json = response8.json()
 
 
     # data 1
@@ -158,6 +195,48 @@ def create_new_label(repo_names: list[str], org_name: str):
             # print(f'Validation failed, or the endpoint has been spammed')
         else:
             print('Something is wrong. Please try again')
+    # data 5
+        if status_code5 == 201:
+            print(f'New label {data5["name"]} created for repository - {repository}')
+        elif status_code5 == 404:
+            print(f'Resource not found')
+        elif status_code5 == 422:
+            print(f"{response5_json['message']}. {response5_json['errors'][0]['resource']} {response5_json['errors'][0]['field']} {data5['name']} {response5_json['errors'][0]['code']} in the repository {repository}")
+            # print(f'Validation failed, or the endpoint has been spammed')
+        else:
+            print('Something is wrong. Please try again')
+    # data 6
+        if status_code6 == 201:
+            print(f'New label {data6["name"]} created for repository - {repository}')
+        elif status_code6 == 404:
+            print(f'Resource not found')
+        elif status_code6 == 422:
+            print(f"{response6_json['message']}. {response6_json['errors'][0]['resource']} {response6_json['errors'][0]['field']} {data6['name']} {response6_json['errors'][0]['code']} in the repository {repository}")
+                # print(f'Validation failed, or the endpoint has been spammed')
+        else:
+            print('Something is wrong. Please try again')
+    # data 7
+        if status_code7 == 201:
+            print(f'New label {data7["name"]} created for repository - {repository}')
+        elif status_code7 == 404:
+            print(f'Resource not found')
+        elif status_code7 == 422:
+            print(f"{response7_json['message']}. {response7_json['errors'][0]['resource']} {response7_json['errors'][0]['field']} {data7['name']} {response7_json['errors'][0]['code']} in the repository {repository}")
+                # print(f'Validation failed, or the endpoint has been spammed')
+        else:
+            print('Something is wrong. Please try again')
+
+    # data 8
+        if status_code8 == 201:
+            print(f'New label {data8["name"]} created for repository - {repository}')
+        elif status_code8 == 404:
+            print(f'Resource not found')
+        elif status_code8 == 422:
+            print(f"{response8_json['message']}. {response8_json['errors'][0]['resource']} {response8_json['errors'][0]['field']} {data8['name']} {response8_json['errors'][0]['code']} in the repository {repository}")
+                # print(f'Validation failed, or the endpoint has been spammed')
+        else:
+            print('Something is wrong. Please try again')
+
 
 def main():
     """ To test the script"""
