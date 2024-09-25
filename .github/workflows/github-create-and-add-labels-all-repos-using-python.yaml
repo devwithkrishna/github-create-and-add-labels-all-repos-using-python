@@ -1,7 +1,7 @@
 name: github-create-and-add-labels-all-repos-using-python
 on:
   schedule:
-    - cron: "0 9 * * 2" # runs weekly at 9 AM on Tuesday
+    - cron: "0 9 * * *" # runs daily at 9 AM utc
   workflow_dispatch:
     inputs:
       organizarion:
